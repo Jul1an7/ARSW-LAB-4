@@ -40,6 +40,11 @@ public class BlueprintsAPIController {
     }
 
     // GET /api/v1/blueprints/{author}
+    @Operation(summary = "Get all blueprints by author")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Blueprints found"),
+            @ApiResponse(responseCode = "404", description = "Author not found")
+    })
     @GetMapping("/{author}")
     public ResponseEntity<ApiResponseLab<?>> byAuthor(@PathVariable String author) {
         try {
@@ -54,6 +59,11 @@ public class BlueprintsAPIController {
     }
 
     // GET /api/v1/blueprints/{author}/{bpname}
+    @Operation(summary = "Get blueprint by author and name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Blueprint found"),
+            @ApiResponse(responseCode = "404", description = "Blueprint not found")
+    })
     @GetMapping("/{author}/{bpname}")
     public ResponseEntity<ApiResponseLab<?>> byAuthorAndName(@PathVariable String author, @PathVariable String bpname) {
         try {
@@ -68,6 +78,11 @@ public class BlueprintsAPIController {
     }
 
     // POST /api/v1/blueprints
+    @Operation(summary = "Create a new blueprint")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Blueprint created"),
+            @ApiResponse(responseCode = "400", description = "Invalid blueprint data")
+    })
     @PostMapping
     public ResponseEntity<?> add(@Valid @RequestBody NewBlueprintRequest req) {
         try {
@@ -82,6 +97,11 @@ public class BlueprintsAPIController {
     }
 
     // PUT /api/v1/blueprints/{author}/{bpname}/points
+    @Operation(summary = "Add a point to an existing blueprint")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "202", description = "Point added"),
+            @ApiResponse(responseCode = "404", description = "Blueprint not found")
+    })
     @PutMapping("/{author}/{bpname}/points")
     public ResponseEntity<?> addPoint(@PathVariable String author, @PathVariable String bpname,
                                       @RequestBody Point p) {
